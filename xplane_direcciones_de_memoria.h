@@ -24,6 +24,7 @@ void Get_pID_Handle() {
 
 }
 // Obtiene la direccion de X-System.
+
 DWORD_PTR GetProcessBaseAddress(DWORD processID)
 {
 	DWORD_PTR   baseAddress = 0;

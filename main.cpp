@@ -1,4 +1,4 @@
-#include "VueloautnomoparalaaeronaveF4PhantomII.h"
+#include "VS19QT.h"
 #include <QtWidgets/QApplication>
 #include <sstream>
 #include <iostream>
@@ -13,15 +13,15 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    VueloautnomoparalaaeronaveF4PhantomII w;
-	//w.show();
+    VS19QT w;   
+	w.show();
 
 	Get_pID_Handle();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // Colores de la consola
 	ObtenerDireccionesPrograma();
 	//ActualizarValores(); // Obtiene los valores por primera vez para calibrar las variables
 	//CalibrarAeronave();
-	//SetConsoleTextAttribute(hConsole, 5); 
+	SetConsoleTextAttribute(hConsole, 5); 
 	qInfo() << "C++ Style Info Message";
 
 	float engine_cr;
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	Kp_pitch = 0.05;
 	Kd_pitch = 0.2;
 	Ki_pitch = 0.0000001;
-	target_pitch = 0;
+	target_pitch = 15;
 
 	Kp_yaw = 0.07;
 	Kd_yaw = 2.7;
@@ -48,9 +48,9 @@ int main(int argc, char *argv[])
 
 	target_engine = 400;
 	float flt = 400;
-	Kp_engine = 0.1;
-	Kd_engine = 2.8;
-	Ki_engine = 0.00000000001;
+	Kp_engine = 0.09;
+	Kd_engine = 2,7;
+	Ki_engine = 0.0000000001;
 
 	float yaw_calc5;
 	float yaw_calc6;
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 
 
 		}
-
+		
 		QCoreApplication::processEvents();
 
 
@@ -91,6 +91,4 @@ int main(int argc, char *argv[])
 	}
 
 	return a.exec();
-
 }
-
