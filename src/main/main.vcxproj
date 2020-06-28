@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{f1555fea-3625-45a6-8b4a-b4c051fa02ec}</ProjectGuid>
-    <RootNamespace>Sistemadevueloautónomo</RootNamespace>
+    <ProjectGuid>{f807831a-555a-47de-9fe3-214a840efe67}</ProjectGuid>
+    <RootNamespace>main</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Sistema de vuelo autónomo.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="datarefs.h" />
+    <ClInclude Include="direcciones_de_memoria.h" />
+    <ClInclude Include="pid.h" />
+    <ClInclude Include="var_globales.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
