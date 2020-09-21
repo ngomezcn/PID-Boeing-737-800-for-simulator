@@ -146,11 +146,12 @@
     <None Include="vendor\addyLib\LICENSE" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\EntryPoint.h" />
     <ClInclude Include="src\includes.h" />
     <ClInclude Include="vendor\addyLib\include\addyLib\Addy64Lib.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Core\main.cpp" />
+    <ClCompile Include="src\Core\core.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

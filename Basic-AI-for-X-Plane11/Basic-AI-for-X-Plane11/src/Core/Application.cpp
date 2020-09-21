@@ -2,5 +2,5 @@
 
 int main()
 {
-
+	Core::Application::Init;
 }
