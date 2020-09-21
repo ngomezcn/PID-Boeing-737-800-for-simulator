@@ -1,6 +1,10 @@
+#pragma once
 #include <includes.h>
 
 int main()
 {
-	Core::Application::Init;
+	Core::Application Init();
+
+	//Init.Log();
+	//Init.Interface();
 }

@@ -1,10 +1,17 @@
 #pragma once
-#include <includes.h>
+#include "includes.h"
 
 namespace Core
 {
-	void Application::Init()
+	class Application
+	{
+	public:
+		Application();
+	};
+
+	Application::Application()
 	{
 
 	}
 }
+
