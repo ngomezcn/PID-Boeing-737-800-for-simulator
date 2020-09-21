@@ -1,2 +1,2 @@
 #TESTTTsss
-[![IMAGE ALT TEXT HERE](resources/video_image.jpg)](https://www.youtube.com/watch?v=gcfJPDOtUXc&feature=youtu.be)
+[![21/09/2020](https://live.staticflickr.com/1487/25207681974_9830e9bd97_b.jpg)](https://www.youtube.com/watch?v=gcfJPDOtUXc&feature=youtu.be)
