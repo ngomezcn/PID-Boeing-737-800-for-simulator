@@ -576,6 +576,12 @@
     <ClInclude Include="src\maths\CalculateCourse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\csv\read_csv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\csv\write_csv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
