@@ -148,7 +148,12 @@
   <ItemGroup>
     <ClInclude Include="src\Core\EntryPoint.h" />
     <ClInclude Include="src\defines.h" />
+    <ClInclude Include="src\Events\OnUpdate.h" />
     <ClInclude Include="src\includes.h" />
+    <ClInclude Include="src\Interface\interface.h" />
+    <ClInclude Include="src\Interface\Simulator\GetAddress.h" />
+    <ClInclude Include="src\maths\CalculateCourse.h" />
+    <ClInclude Include="src\maths\pid.h" />
     <ClInclude Include="vendor\addyLib\include\addyLib\Addy64Lib.h" />
     <ClInclude Include="vendor\spdlog\include\async.h" />
     <ClInclude Include="vendor\spdlog\include\async_logger-inl.h" />

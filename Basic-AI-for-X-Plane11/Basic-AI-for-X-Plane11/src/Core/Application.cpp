@@ -3,8 +3,7 @@
 
 int main()
 {
-	Core::Application Init();
+	Core::Application Init;
+	Init.Log();
 
-	//Init.Log();
-	//Init.Interface();
 }
