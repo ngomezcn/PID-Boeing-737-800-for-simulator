@@ -1,0 +1,6 @@
+0,altitude,flaps,gear_request,gradient,speed,terminate_condition
+V0,35,0,0,0,180,speed
+V1,120,0,1,10,220,gear_status
+V2,400,0,1,13,400,altitude
+V3,400,0,1,0,400,speed
+V4,1500,0,1,10,400,altitude

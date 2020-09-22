@@ -147,8 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\EntryPoint.h" />
-    <ClInclude Include="src\csv\read_csv.h" />
-    <ClInclude Include="src\csv\write_csv.h" />
     <ClInclude Include="src\defines.h" />
     <ClInclude Include="src\Events\OnUpdate.h" />
     <ClInclude Include="src\includes.h" />
@@ -337,6 +335,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp" />
+    <ClCompile Include="src\csv\read.cpp" />
+    <ClCompile Include="src\csv\write.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
