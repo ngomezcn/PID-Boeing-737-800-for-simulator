@@ -17,14 +17,31 @@ namespace csv
         vector<vector<std::string> > matrix; 
 
         read(std::string &_filename);
+    
     private:
+    
         void get_rows();
+        void get_columns();
+
         void save_in_matrix();
     };
 
     void read::get_columns()
     {
-        // Code to get the columns from to string line
+        std::string line;
+        std::ifstream myFile(filename);
+
+        std::getline(myFile, line);
+
+        for(int i = 0; i < line.length(); i++)
+        {
+            if(line[i] == ',')
+            {
+                columns++;
+            }
+        }
+
+        myFile.close();
     }
 
     void read::get_rows()
@@ -45,10 +62,24 @@ namespace csv
         std::ifstream myFile(filename);
 
         std::string line;
+        
+        std::string buffer;
 
-       /*
+        int len = line.length(); 
 
-        Code to tranform string line into a matrix
+        for(int i = 0; i < rows; i++)
+        {
+            std::getline(myFile, line);
+
+            for(int j = 0; j < columns; j++)
+            {                
+                //std::cout << line[j] << std::endl;                
+            }
+        }
+
+        /*
+
+        Code to tranform string line and put it into matrix separated by comas
 
         */
 
@@ -61,6 +92,7 @@ namespace csv
         filename = _filename;
 
         get_rows();
+        get_columns();
 
         save_in_matrix();
         
@@ -78,11 +110,16 @@ namespace path
 int main() {
 
    
+    std::string a = "0123456789";
+    std::string b = a.substr(0,3);
+
+    std::cout << b << std::endl;
+
     csv::read flightplan(path::flightplan);
 
-    std::cout << "rows: " << flightplan.rows << " -";
-    std::cout << "columns: " << flightplan.columns << " -";
-
+    std::cout << "rows: " << flightplan.rows;
+    std::cout << std::endl;
+    std::cout << "columns: " << flightplan.columns;
 
     /*std::cout << std::endl;
     for (int i = 0; i < lineas; i++)
@@ -94,5 +131,5 @@ int main() {
         std::cout << std::endl;
     } */
 
-    return 0;
+    std::cout << std::endl; return 0;
 }
