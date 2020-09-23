@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream> 
 
 // Precompiled headers
 #include <defines.h>

@@ -1,57 +1,57 @@
-#include <string>
-#include <fstream>
-#include <vector>
-#include <utility> // std::pair
-#include <stdexcept> // std::runtime_error
-#include <sstream> // std::stringstream
-#include <iostream>
+#include <includes.h>
 
 using namespace std;
 
-std::string matrix[2][5];
+const int lineas = 2;
+const int columnas = 5;
+
+std::string matrix[lineas][columnas];
 
 void read_csv(std::string filename) {
 
+
     std::ifstream myFile(filename);
 
-    // Make sure the file is open
-    if (!myFile.is_open()) throw std::runtime_error("Could not open file");
+    if (!myFile.is_open()) prerror("No se ha podido abrir el archivo: {0}", filename);            
 
-    // Helper vars
     std::string line;
     std::string val;
 
-    for (int i = 0; i < 6; i++)
-    {
-        // Cada vez que se llama salta a la siguiente linea y la extrae
-        std::getline(myFile, line);
-        
-        std::cout << line;
-        
-        std::cout << "\n";
+    // Convierte las lineas en extraidas en crudo e introduce cada valor en la casilla que corresponde dentro del array.
+    for (int i = 0; i < lineas; i++)
+    {              
+         std::getline(myFile, line);
+         
+         int indexColums = 0;
+
+         for (int j = 0; j < columnas + (columnas - extraComa); j++)
+         {  
+             if (line[j] != ',')
+             {
+                 matrix[i][indexColums] = line[j];
+                 indexColums++;
+             }
+         }
+
+         std::cout << "\n";              
     }
     
     myFile.close();
-
 }
 
-
-
 int main() {
-    //Read three_cols.csv and ones.csv
-    read_csv("dataflight/takeoff.csv");
 
-    std::cout << std::endl << "======" << std::endl;
-    //myOwn();
+  
+    read_csv("tesst.csv");    
 
-    for (int i = 0; i < 6; i++)
+  /*  for (int i = 0; i < lineas; i++)
     {
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < columnas; j++)
         {
             std::cout << matrix[i][j] << ",";
         }
         std::cout << std::endl;
-    }
+    }*/
 
     return 0;
 }
