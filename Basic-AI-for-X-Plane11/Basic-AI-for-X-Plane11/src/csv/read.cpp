@@ -3,12 +3,13 @@
 #include <string>
 #include <sstream>
 #include <vector> 
+#include <includes.h>
 
 using namespace std;
 
 namespace path
 {
-    std::string flightplan = { "test.csv"};
+    std::string flightplan = { "test.csv" };
 }
 
 namespace csv
@@ -16,22 +17,27 @@ namespace csv
     class read
     {
     public:
+        vector<vector<std::string> > matrix;
+        vector<int> coma_map;
+
         std::string filename;
+
+        int raw_columns = 0;
         int columns = 0;
         int rows = 0;
 
-        vector<vector<std::string> > matrix; 
 
-        read(std::string &_filename);
-    
+        // Constructor
+        read(std::string& _filename);
+
     private:
-    
+
         void get_rows();
         void get_columns();
+        void create_coma_map();
 
         void save_in_matrix();
 
-        std::string substract(int &begin, int &end);
     };
 
     void read::get_columns()
@@ -40,10 +46,11 @@ namespace csv
         std::ifstream myFile(filename);
 
         std::getline(myFile, line);
+        raw_columns = line.length();
 
-        for(int i = 0; i < line.length(); i++)
+        for (int i = 0; i < raw_columns; i++)
         {
-            if(line[i] == ',')
+            if (line[i] == ',')
             {
                 columns++;
             }
@@ -66,56 +73,74 @@ namespace csv
         myFile.close();
     }
 
-    std::string read::substract(int& begin, int& end)
+    void read::create_coma_map()
     {
+        std::ifstream myFile(filename);
+        std::string line;
+        int len = line.length();
 
+        std::getline(myFile, line);
+
+        for (int i = 0; i < line.length(); i++)
+        {
+            if (line[i] == ',')
+            {
+                coma_map.push_back(i);
+            }
+        }     
+
+        myFile.close();
     }
-
 
     void read::save_in_matrix()
     {
         std::ifstream myFile(filename);
-
         std::string line;
-        
-        vector<int> coma(columns);
-
-        int len = line.length(); 
-
-        std::getline(myFile, line);
+        int len = line.length();
 
         string arr[5];
+
+        std::getline(myFile, line);
         
-
-        int ct = 0;
-        std::cout << "IDs: ";
-        for(int j = 0; j < line.length(); j++)
-        {                
-             if (line[j] == ',')
-             {
-                 coma[j] = j;
-                 std::cout << coma[j];
-             }                
-        }
-
-        //- 1 - 3 - 5 - 7 - 19
-        for (int i = 0; i < 5; i++)
+        //map: 1-3-5-7
+        //line: 1 , 2 , 3 , 4 , 5  
+        // coma    coma+   
+        //   1   -    3 = 
+        for (int i = 0; i < columns; i++)
         {
-            std::cout << "\nline: " << line << std::endl;
-            std::cout << "line.substr " << line.substr(2,3) << std::endl;
+            if (i == 0)
+            {
+                arr[i] = line.substr(0, coma_map[i]);
+                cout << "substr: " << "( " << 0 << " , " << coma_map[i] << endl;
+            }
+
+
+            int size_calc = ((coma_map[i + 1] - coma_map[i]) - 1);        
+            int last_size_calc = ((line.length() - coma_map[i]) - 1);
+            
+             cout << "i: " << i << " expresion. " << (i == (columns - 1)) << "  substr: " << "( " << coma_map[i]+1 << " , " << ( i == columns-1 ? last_size_calc : size_calc) << endl;
+        
+             arr[i] = line.substr(coma_map[i] + 1, (i == columns - 1 ? last_size_calc : size_calc) );
         }
-        myFile.close();
+
+        cout << "\nMat:\n";
+        for (int i = 0; i < columns; i++)
+        {
+            cout << arr[i] << "/";
+        }
     }
 
     // Constructor class
-    read::read(std::string &_filename)
+    read::read(std::string& _filename)
     {
         filename = _filename;
 
         get_rows();
         get_columns();
 
-        save_in_matrix();        
+        create_coma_map();
+
+        save_in_matrix();
     }
 }
 
@@ -123,15 +148,12 @@ namespace csv
 
 int main() {
 
-    std::string a = "0123456789";
-    std::string b = a.substr(0,3);
-    cout << endl << b << endl;
     csv::read flightplan(path::flightplan);
 
     std::cout << std::endl;
-    std::cout << "rows: " << flightplan.rows;
+    //std::cout << "rows: " << flightplan.rows;
     std::cout << std::endl;
-    std::cout << "columns: " << flightplan.columns;
+    //std::cout << "columns: " << flightplan.columns;
 
     /*std::cout << std::endl;
     for (int i = 0; i < lineas; i++)

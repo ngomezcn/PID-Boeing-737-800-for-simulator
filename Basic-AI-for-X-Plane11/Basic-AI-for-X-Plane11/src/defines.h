@@ -10,4 +10,4 @@
 #define prinfo(...)      spdlog::info(__VA_ARGS__)
 #define prwarn(...)      spdlog::warn(__VA_ARGS__)
 #define prerror(...)     spdlog::error(__VA_ARGS__)
-#define prcriticial(...) spdlog::critical(__VA_ARGS__)
+#define prcritical(...) spdlog::critical(__VA_ARGS__)
