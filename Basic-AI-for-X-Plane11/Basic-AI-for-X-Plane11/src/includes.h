@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <sstream> 
+#include <vector>
 
 // Precompiled headers
 #include <defines.h>
@@ -19,3 +20,6 @@
 
 // Interface 
 #include "Interface/interface.h"
+
+// Csv
+#include "csv/read.h"

@@ -1,9 +1,10 @@
-//#pragma once
-//#include <includes.h>
-//
-//int main()
-//{
-//	Core::Application Init;
-//	Init.Log();
-//
-//}
+#include <includes.h>
+
+int main() {
+
+    Init::Log();
+
+    csv::read flightplan(path::flightplan);
+
+    flightplan.print();
+}

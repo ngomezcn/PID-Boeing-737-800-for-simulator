@@ -3,16 +3,15 @@
 
 
 
-namespace Core
+namespace Init
 {
-	class Application
+	void Log()
 	{
-	public:
-		void Log();
-	};
+		spdlog::set_pattern("%^[%l]%$ %v");
 
-	void Application::Log()
-	{
-		prinfo("Hola");
+		prinfo("Log initialized");
+
+		spdlog::set_level(spdlog::level::info);
 	}
 }
+
