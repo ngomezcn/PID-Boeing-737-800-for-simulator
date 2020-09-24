@@ -17,7 +17,8 @@ namespace csv
     class read
     {
     public:
-        vector<vector<std::string> > matrix;
+        //vector<vector<std::string> > matrix;
+        std::string matrix[100][100]{"-"};
         vector<int> coma_map;
 
         std::string filename;
@@ -26,15 +27,18 @@ namespace csv
         int columns = 0;
         int rows = 0;
 
-
         // Constructor
         read(std::string& _filename);
+
+        // Public functions
+        void print();
 
     private:
 
         void get_rows();
         void get_columns();
         void create_coma_map();
+
 
         void save_in_matrix();
 
@@ -45,9 +49,10 @@ namespace csv
         std::string line;
         std::ifstream myFile(filename);
 
-        std::getline(myFile, line);
-        raw_columns = line.length();
+        std::getline(myFile, line); 
 
+        raw_columns = line.length();
+        columns = 0;
         for (int i = 0; i < raw_columns; i++)
         {
             if (line[i] == ',')
@@ -64,7 +69,8 @@ namespace csv
     {
         std::string line;
         std::ifstream myFile(filename);
-
+ 
+        rows = 0;
         while (std::getline(myFile, line))
         {
             rows++;
@@ -77,7 +83,7 @@ namespace csv
     {
         std::ifstream myFile(filename);
         std::string line;
-        int len = line.length();
+ 
 
         std::getline(myFile, line);
 
@@ -96,37 +102,44 @@ namespace csv
     {
         std::ifstream myFile(filename);
         std::string line;
-        int len = line.length();
 
-        string arr[5];
-
-        std::getline(myFile, line);
-        
-        //map: 1-3-5-7
-        //line: 1 , 2 , 3 , 4 , 5  
-        // coma    coma+   
-        //   1   -    3 = 
-        for (int i = 0; i < columns; i++)
+        for (int i = 0; i < rows; i++)
         {
-            if (i == 0)
+            std::getline(myFile, line);
+                           
+            coma_map.resize(0);           
+
+            for (int i = 0; i < line.length(); i++)
             {
-                arr[i] = line.substr(0, coma_map[i]);
-                cout << "substr: " << "( " << 0 << " , " << coma_map[i] << endl;
+                if (line[i] == ',')
+                {
+                    coma_map.push_back(i);
+                }
             }
 
+            raw_columns = line.length();
+         
+            for (int j = 0; j < columns; j++)
+            {               
+                int size_calc = ((coma_map[j + 1] - coma_map[j]) - 1);
+                int last_size_calc = ((raw_columns - coma_map[j]) - 1);
 
-            int size_calc = ((coma_map[i + 1] - coma_map[i]) - 1);        
-            int last_size_calc = ((line.length() - coma_map[i]) - 1);
-            
-             cout << "i: " << i << " expresion. " << (i == (columns - 1)) << "  substr: " << "( " << coma_map[i]+1 << " , " << ( i == columns-1 ? last_size_calc : size_calc) << endl;
-        
-             arr[i] = line.substr(coma_map[i] + 1, (i == columns - 1 ? last_size_calc : size_calc) );
-        }
 
-        cout << "\nMat:\n";
-        for (int i = 0; i < columns; i++)
+                matrix[i][j] = line.substr(static_cast<int>(coma_map[j] + 1), (j == columns - 1 ? last_size_calc : size_calc));
+            }
+        }       
+    }
+
+    void read::print()
+    {
+        std::cout << std::endl;
+        for (int i = 0; i < rows; i++)
         {
-            cout << arr[i] << "/";
+            for (int j = 0; j < columns; j++)
+            {
+                std::cout << "[" << matrix[i][j] << "]";
+            }
+            std::cout << std::endl;
         }
     }
 
@@ -150,20 +163,8 @@ int main() {
 
     csv::read flightplan(path::flightplan);
 
-    std::cout << std::endl;
-    //std::cout << "rows: " << flightplan.rows;
-    std::cout << std::endl;
-    //std::cout << "columns: " << flightplan.columns;
-
-    /*std::cout << std::endl;
-    for (int i = 0; i < lineas; i++)
-    {
-        for (int j = 0; j < columnas; j++)
-        {
-            std::cout << flightplan.matrix[i][j] << ",";
-        }
-        std::cout << std::endl;
-    } */
+    flightplan.print();
+    
 
     std::cout << std::endl; return 0;
 }
