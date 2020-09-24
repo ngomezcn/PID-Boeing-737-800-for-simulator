@@ -39,7 +39,6 @@ namespace csv
         void get_rows();
         void get_columns();
 
-        void get_dimensions();
 
         void save_in_matrix();
         void create_coma_map();
@@ -132,12 +131,6 @@ namespace csv
         myFile.close();
     }
 
-    void read::get_dimensions()
-    {
-        get_columns();
-        get_rows();
-    }
-
     // Esta funcion sera llamada por cada linea en el archivo .csv
     void read::create_coma_map()
     {
@@ -188,6 +181,7 @@ namespace csv
             prinfo("Printing file: {0}", filename);
             for (int i = 0; i < rows; i++)
             {
+                
                 for (int j = 0; j < columns; j++)
                 {
                     std::cout << "[" << matrix[i][j] << "]";

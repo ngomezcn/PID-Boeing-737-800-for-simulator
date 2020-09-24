@@ -146,8 +146,10 @@
     <None Include="vendor\addyLib\LICENSE" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\Core\EntryPoint.h" />
     <ClInclude Include="src\csv\read.h" />
+    <ClInclude Include="src\csv\on_update_file.h" />
     <ClInclude Include="src\defines.h" />
     <ClInclude Include="src\Events\OnUpdate.h" />
     <ClInclude Include="src\includes.h" />
@@ -336,6 +338,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Basic-AI-for-X-Plane11.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\..\Downloads\ilst130500011.ico" />
+    <Image Include="..\..\..\..\..\Downloads\ilst130500011.jpg" />
+    <Image Include="icon1.ico" />
+    <Image Include="icon2.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
