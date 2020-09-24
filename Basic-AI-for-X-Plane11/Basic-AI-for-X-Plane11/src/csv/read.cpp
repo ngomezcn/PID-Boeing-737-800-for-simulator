@@ -6,6 +6,11 @@
 
 using namespace std;
 
+namespace path
+{
+    std::string flightplan = { "test.csv"};
+}
+
 namespace csv
 {
     class read
@@ -14,6 +19,7 @@ namespace csv
         std::string filename;
         int columns = 0;
         int rows = 0;
+
         vector<vector<std::string> > matrix; 
 
         read(std::string &_filename);
@@ -24,6 +30,8 @@ namespace csv
         void get_columns();
 
         void save_in_matrix();
+
+        std::string substract(int &begin, int &end);
     };
 
     void read::get_columns()
@@ -44,6 +52,7 @@ namespace csv
         myFile.close();
     }
 
+    // Para obtener el numero de filas suma 1 en cada iteración cada vez que getline encuentra una línea para extraer.
     void read::get_rows()
     {
         std::string line;
@@ -57,32 +66,44 @@ namespace csv
         myFile.close();
     }
 
+    std::string read::substract(int& begin, int& end)
+    {
+
+    }
+
+
     void read::save_in_matrix()
     {
         std::ifstream myFile(filename);
 
         std::string line;
         
-        std::string buffer;
+        vector<int> coma(columns);
 
         int len = line.length(); 
 
-        for(int i = 0; i < rows; i++)
-        {
-            std::getline(myFile, line);
+        std::getline(myFile, line);
 
-            for(int j = 0; j < columns; j++)
-            {                
-                //std::cout << line[j] << std::endl;                
-            }
+        string arr[5];
+        
+
+        int ct = 0;
+        std::cout << "IDs: ";
+        for(int j = 0; j < line.length(); j++)
+        {                
+             if (line[j] == ',')
+             {
+                 coma[j] = j;
+                 std::cout << coma[j];
+             }                
         }
 
-        /*
-
-        Code to tranform string line and put it into matrix separated by comas
-
-        */
-
+        //- 1 - 3 - 5 - 7 - 19
+        for (int i = 0; i < 5; i++)
+        {
+            std::cout << "\nline: " << line << std::endl;
+            std::cout << "line.substr " << line.substr(2,3) << std::endl;
+        }
         myFile.close();
     }
 
@@ -94,29 +115,20 @@ namespace csv
         get_rows();
         get_columns();
 
-        save_in_matrix();
-        
+        save_in_matrix();        
     }
 }
 
 
 
-
-namespace path
-{
-    std::string flightplan = { "test.csv"};
-}
-
 int main() {
 
-   
     std::string a = "0123456789";
     std::string b = a.substr(0,3);
-
-    std::cout << b << std::endl;
-
+    cout << endl << b << endl;
     csv::read flightplan(path::flightplan);
 
+    std::cout << std::endl;
     std::cout << "rows: " << flightplan.rows;
     std::cout << std::endl;
     std::cout << "columns: " << flightplan.columns;
