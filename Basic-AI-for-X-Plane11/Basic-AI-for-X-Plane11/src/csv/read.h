@@ -4,8 +4,8 @@
 namespace path
 {
     std::string flightplan = { "flightplan.csv" };
-    std::string takeoff = { "takeoff.csv" };
-    std::string config = { "config.csv" };
+    std::string takeoff    = { "takeoff.csv" };
+    std::string config     = { "config.csv" };
 }
 
 namespace csv
@@ -13,7 +13,8 @@ namespace csv
     class read
     {
     public:
-        std::string matrix[100][100]{ "-" };
+        //std::string matrix[100][100]{ "-" };
+        std::vector<std::vector<std::string>> matrix;
 
         std::string filename;
         int columns{ 0 };
@@ -26,6 +27,8 @@ namespace csv
         void print();
 
     private:
+
+        bool getError = false;
 
         std::vector<int> coma_map;
         std::ifstream myFile;
@@ -43,9 +46,8 @@ namespace csv
 
         void reset_func_getline();
 
-        // Exceptions and error handling
+        // Exceptions and error handling manager
         bool check_file_location();
-
         bool verify_standard();
     };
 
@@ -176,14 +178,22 @@ namespace csv
 
     void read::print()
     {
-        prinfo("Printing file: {0}", filename);
-        for (int i = 0; i < rows; i++)
+        if (getError)
         {
-            for (int j = 0; j < columns; j++)
+            prwarn("Unable to print due to an error that occurred during execution.");
+        }
+        else
+        {
+
+            prinfo("Printing file: {0}", filename);
+            for (int i = 0; i < rows; i++)
             {
-                std::cout << "[" << matrix[i][j] << "]";
+                for (int j = 0; j < columns; j++)
+                {
+                    std::cout << "[" << matrix[i][j] << "]";
+                }
+                std::cout << std::endl;
             }
-            std::cout << std::endl;
         }
     }
 
@@ -194,8 +204,9 @@ namespace csv
 
         if (!check_file_location())
         {
-            prerror("File {0} could not be opened.", filename);
+            getError = true;
 
+            prerror("File {0} could not be opened.", filename);
             prwarn("Aborting the creation of the object.");
         }
         else
@@ -206,10 +217,16 @@ namespace csv
 
             if (!verify_standard())
             {
-                prerror("The file have not the same columns ins each row");
+                getError = true;
+                prerror("The file have not the same columns in each row");
             }
             else
             {
+                matrix.resize(rows);
+                for (int i = 0; i < rows; i++)
+                {
+                    matrix[i].resize(columns);
+                }
                 save_in_matrix();
             }
         }

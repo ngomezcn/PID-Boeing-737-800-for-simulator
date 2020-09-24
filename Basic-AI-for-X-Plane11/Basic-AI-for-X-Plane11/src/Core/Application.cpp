@@ -6,5 +6,5 @@ int main() {
 
     csv::read flightplan(path::flightplan);
 
-    flightplan.print();
+    flightplan.print(); 
 }
