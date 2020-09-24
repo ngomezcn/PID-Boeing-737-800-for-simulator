@@ -3,7 +3,9 @@
 
 namespace path
 {
-    std::string flightplan = { "test.csv" };
+    std::string flightplan = { "flightplan.csv" };
+    std::string takeoff = { "takeoff.csv" };
+    std::string config = { "config.csv" };
 }
 
 namespace csv
@@ -11,7 +13,6 @@ namespace csv
     class read
     {
     public:
-
         std::string matrix[100][100]{ "-" };
 
         std::string filename;
@@ -40,12 +41,36 @@ namespace csv
         void save_in_matrix();
         void create_coma_map();
 
-        bool error_manager();
+        void reset_func_getline();
 
-        void check_file_location();
+        // Exceptions and error handling
+        bool check_file_location();
+
+        bool verify_standard();
     };
 
-    void read::check_file_location()
+    bool read::verify_standard()
+    {
+        reset_func_getline();
+        create_coma_map();
+
+        int size_arr = coma_map.size();        
+
+        for (int i = 0; i < rows; i++)
+        {
+            std::getline(myFile, line);
+            create_coma_map();
+
+            if (coma_map.size() != size_arr)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void read::reset_func_getline()
     {
         if (myFile.is_open())
         {
@@ -59,14 +84,12 @@ namespace csv
         }
     }
 
-    bool read::error_manager()
+    bool read::check_file_location()
     {
-        check_file_location();
+        reset_func_getline();
 
         if (!myFile.is_open())
         {
-            prerror("File {0} could not be opened.", filename);
-
             return false;
         }
         myFile.close();
@@ -76,7 +99,7 @@ namespace csv
 
     void read::get_columns()
     {
-        check_file_location();
+        reset_func_getline();
 
         std::getline(myFile, line);
 
@@ -96,7 +119,7 @@ namespace csv
     // Para obtener el numero de filas suma 1 en cada iteración cada vez que getline encuentra una línea para extraer.
     void read::get_rows()
     {
-        check_file_location();
+        reset_func_getline();
 
         rows = 0;
         while (std::getline(myFile, line))
@@ -130,7 +153,7 @@ namespace csv
     // Extrae los caracteres linea por linea y los guarda en una matriz
     void read::save_in_matrix()
     {
-        check_file_location();
+        reset_func_getline();
 
         for (int i = 0; i < rows; i++)
         {
@@ -167,20 +190,28 @@ namespace csv
     // Constructor class
     read::read(std::string& _filename)
     {
-
         filename = _filename;
 
-        if (!error_manager())
+        if (!check_file_location())
         {
-            prwarn("Aborting the creation of the object.");
+            prerror("File {0} could not be opened.", filename);
 
+            prwarn("Aborting the creation of the object.");
         }
         else
         {
+            // Get the dimensions.
             get_rows();
             get_columns();
 
-            save_in_matrix();
+            if (!verify_standard())
+            {
+                prerror("The file have not the same columns ins each row");
+            }
+            else
+            {
+                save_in_matrix();
+            }
         }
     }
 }

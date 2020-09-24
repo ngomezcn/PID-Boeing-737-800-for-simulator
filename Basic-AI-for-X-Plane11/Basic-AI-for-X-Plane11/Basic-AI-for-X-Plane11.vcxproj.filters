@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\addyLib\LICENSE" />
-    <None Include="test.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\addyLib\include\addyLib\Addy64Lib.h">
