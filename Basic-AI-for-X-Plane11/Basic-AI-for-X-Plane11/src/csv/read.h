@@ -116,7 +116,7 @@ namespace csv
         myFile.close();
     }
 
-    // Para obtener el numero de filas suma 1 en cada iteración cada vez que getline encuentra una línea para extraer.
+    // Para obtener el numero de filas suma 1 en cada iteraciÃ³n cada vez que getline encuentra una lÃ­nea para extraer.
     void read::get_rows()
     {
         reset_func_getline();
@@ -181,14 +181,21 @@ namespace csv
         else
         {
             
+            std::vector<int> size_map;
+    
             int max = 0;
-            for (int k = 0; k < rows; k++)
+            for (int i = 0; i < columns; i++)
             {
-                if (matrix[k][0].length() > max)
+                max = 0;
+                for(int j = 0; j < rows; j++)
                 {
-                    max = matrix[k][0].length();
-                }
-            }
+                    if (matrix[j][i].length() > max)
+                    {
+                        max = matrix[j][i].length();
+                    }
+                  }
+              size_map.push_back(max);
+             }
 
             prinfo("Printing file: {0}", filename);
             for (int i = 0; i < rows; i++)
@@ -199,8 +206,8 @@ namespace csv
                 for (int j = 0; j < columns; j++)
                 {                   
                     
-                    std::string s(max - matrix[i][0].length(), ' ');
-                    //std::cout << max << " - " << matrix[i][0].length() << std::endl;
+                     std::string s(size_map[j] - matrix[i][j].length(), ' ');
+
                      std::cout << "[" << matrix[i][j] << s << "]";
                 }
                 std::cout << std::endl;
