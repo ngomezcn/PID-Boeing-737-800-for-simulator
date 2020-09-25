@@ -10,15 +10,16 @@ namespace path
 
 namespace csv
 {
-    class read
+    class read 
     {
     public:
-        //std::string matrix[100][100]{ "-" };
         std::vector<std::vector<std::string>> matrix;
 
         std::string filename;
         int columns{ 0 };
         int rows{ 0 };
+
+        bool getError = false;
 
         // Constructor
         read(std::string& _filename);
@@ -26,9 +27,9 @@ namespace csv
         // Public functions
         void print();
 
-    private:
+        void read_file();
 
-        bool getError = false;
+    private:
 
         std::vector<int> coma_map;
         std::ifstream myFile;
@@ -39,10 +40,9 @@ namespace csv
         void get_rows();
         void get_columns();
 
-
         void save_in_matrix();
-        void create_coma_map();
 
+        void create_coma_map();
         void reset_func_getline();
 
         // Exceptions and error handling manager
@@ -103,7 +103,6 @@ namespace csv
         reset_func_getline();
 
         std::getline(myFile, line);
-
         line_len = line.length();
         columns = 0;
         for (int i = 0; i < line_len; i++)
@@ -125,6 +124,7 @@ namespace csv
         rows = 0;
         while (std::getline(myFile, line))
         {
+
             rows++;
         }
 
@@ -150,20 +150,25 @@ namespace csv
     {
         reset_func_getline();
 
+
         for (int i = 0; i < rows; i++)
         {
             std::getline(myFile, line);
 
             create_coma_map();
+            using namespace std;
 
             for (int j = 0; j < columns; j++)
             {
                 int size_calc = ((coma_map[j + 1] - coma_map[j]) - 1);
                 int last_size_calc = ((line.length() - coma_map[j]) - 1);
 
+                //cout << "Size_calc; " << (coma_map[j + 1]) << " - " << (coma_map[j] - 1) << " = "<< size_calc << endl;
+                        
 
-                matrix[i][j] = line.substr(coma_map[j] + 1, (j == columns - 1 ? last_size_calc : size_calc));
+                matrix[i+1][j] = line.substr(coma_map[j] + 1, (j == columns - 1 ? last_size_calc : size_calc));
             }
+            cout << "\n";
         }
 
         myFile.close();
@@ -173,12 +178,12 @@ namespace csv
     {
         if (getError)
         {
-            prwarn("Unable to print due to an error that occurred during execution.");
+            //prwarn("Unable to print due to an error that occurred during execution.");
         }
         else
         {
 
-            prinfo("Printing file: {0}", filename);
+            //prinfo("Printing file: {0}", filename);
             for (int i = 0; i < rows; i++)
             {
                 
@@ -191,10 +196,10 @@ namespace csv
         }
     }
 
-    // Constructor class
-    read::read(std::string& _filename)
+    // Esta funcion es la main
+    void read::read_file()
     {
-        filename = _filename;
+        getError = false;
 
         if (!check_file_location())
         {
@@ -224,5 +229,14 @@ namespace csv
                 save_in_matrix();
             }
         }
+    }
+
+    // Constructor class
+    read::read(std::string& _filename)
+    {
+        filename = _filename;
+
+        read_file();
+
     }
 }
