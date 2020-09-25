@@ -181,12 +181,27 @@ namespace csv
         else
         {
             
+            int max = 0;
+            for (int k = 0; k < rows; k++)
+            {
+                if (matrix[k][0].length() > max)
+                {
+                    max = matrix[k][0].length();
+                }
+            }
+
             prinfo("Printing file: {0}", filename);
             for (int i = 0; i < rows; i++)
-            {                
+            {     
+                //std::cout << max << std::endl;
+
+
                 for (int j = 0; j < columns; j++)
-                {                    
-                    std::cout << "[" << matrix[i][j] << "]";
+                {                   
+                    
+                    std::string s(max - matrix[i][0].length(), ' ');
+                    //std::cout << max << " - " << matrix[i][0].length() << std::endl;
+                     std::cout << "[" << matrix[i][j] << s << "]";
                 }
                 std::cout << std::endl;
             }
