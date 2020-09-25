@@ -150,25 +150,22 @@ namespace csv
     {
         reset_func_getline();
 
-
         for (int i = 0; i < rows; i++)
         {
             std::getline(myFile, line);
 
             create_coma_map();
-            using namespace std;
 
             for (int j = 0; j < columns; j++)
             {
                 int size_calc = ((coma_map[j + 1] - coma_map[j]) - 1);
                 int last_size_calc = ((line.length() - coma_map[j]) - 1);
+                       
 
-                //cout << "Size_calc; " << (coma_map[j + 1]) << " - " << (coma_map[j] - 1) << " = "<< size_calc << endl;
-                        
-
-                matrix[i+1][j] = line.substr(coma_map[j] + 1, (j == columns - 1 ? last_size_calc : size_calc));
+                matrix[i][j] = line.substr(coma_map[j] + 1, (j == columns - 1 ? last_size_calc : size_calc));
             }
-            cout << "\n";
+
+            matrix[i].insert(matrix[i].begin(), line.substr(0, coma_map[0]));
         }
 
         myFile.close();
@@ -176,19 +173,19 @@ namespace csv
 
     void read::print()
     {
+       
         if (getError)
         {
-            //prwarn("Unable to print due to an error that occurred during execution.");
+            prwarn("Unable to print due to an error that occurred during execution.");
         }
         else
         {
-
-            //prinfo("Printing file: {0}", filename);
+            
+            prinfo("Printing file: {0}", filename);
             for (int i = 0; i < rows; i++)
-            {
-                
+            {                
                 for (int j = 0; j < columns; j++)
-                {
+                {                    
                     std::cout << "[" << matrix[i][j] << "]";
                 }
                 std::cout << std::endl;
@@ -234,9 +231,8 @@ namespace csv
     // Constructor class
     read::read(std::string& _filename)
     {
-        filename = _filename;
+        filename = _filename;       
 
         read_file();
-
     }
 }
