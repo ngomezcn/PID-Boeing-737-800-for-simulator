@@ -2,10 +2,11 @@
 
 namespace csv
 {
-	class process : read
+	class csv_pid
 	{
-	public:
-		void hola()
+		std::string variable[2];
+
+		csv_pid(int a)
 		{
 
 		}

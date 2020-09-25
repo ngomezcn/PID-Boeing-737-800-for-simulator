@@ -10,6 +10,7 @@ namespace path
 
 namespace csv
 {
+
     class read 
     {
     public:
@@ -124,7 +125,6 @@ namespace csv
         rows = 0;
         while (std::getline(myFile, line))
         {
-
             rows++;
         }
 
@@ -176,7 +176,7 @@ namespace csv
        
         if (getError)
         {
-            prwarn("Unable to print due to an error that occurred during execution.");
+            prerror("Unable to print due to an error that occurred during execution.");
         }
         else
         {
@@ -200,12 +200,9 @@ namespace csv
             prinfo("Printing file: {0}", filename);
             for (int i = 0; i < rows; i++)
             {     
-                //std::cout << max << std::endl;
-
 
                 for (int j = 0; j < columns; j++)
-                {                   
-                    
+                {                                       
                      std::string s(size_map[j] - matrix[i][j].length(), ' ');
 
                      std::cout << "[" << matrix[i][j] << s << "]";
@@ -225,7 +222,7 @@ namespace csv
             getError = true;
 
             prerror("File {0} could not be opened.", filename);
-            prwarn("Aborting the creation of the object.");
+            prwarn("Aborting the creation of the object.\n");
         }
         else
         {
@@ -236,7 +233,7 @@ namespace csv
             if (!verify_standard())
             {
                 getError = true;
-                prerror("The file have not the same columns in each row");
+                prwarn("The file have not the same columns in each row\n");
             }
             else
             {

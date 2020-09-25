@@ -9,7 +9,7 @@ int main() {
 
     flightplan.print();
     
-   while (true)
+   while (false)
    {
         flightplan.read_file();
         if (!flightplan.getError)
@@ -19,6 +19,5 @@ int main() {
         flightplan.print();
 
         Sleep(10);
-
     }
    }
