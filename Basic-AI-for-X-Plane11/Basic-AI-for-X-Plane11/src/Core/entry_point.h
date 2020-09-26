@@ -3,13 +3,15 @@
 
 namespace Init
 {
-	void Log()
+	void Log(spdlog::level::level_enum level)
 	{
 		spdlog::set_pattern("%^[%l]%$ %v");
 
 		prinfo("Log initialized");
 
-		spdlog::set_level(spdlog::level::info);
+		spdlog::set_level(level);
 	}
+
+	
 }
 

@@ -9,19 +9,20 @@
 // Precompiled headers
 #include <defines.h>
 
-// namespace's
-
 // Vendor
 #include "addyLib/Addy64Lib.h"
 #include "spdlog/spdlog.h"
 
 // Core
-#include "Core/EntryPoint.h"
+#include "Core/entry_point.h"
 
-// Interface 
-#include "Interface/interface.h"
+// Environment 
 
-// Csv
-#include "csv/read.h"
-#include "csv/process_data.h"
-#include "csv/on_update_file.h"
+// CSV
+#include "CSV/csv_manager.h"
+#include "CSV/build_csv.h"
+
+// PID
+#include "PID/PID.h"
+#include "PID/pid_build.h"
+

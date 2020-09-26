@@ -16,6 +16,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\addyLib\LICENSE" />
+    <None Include="config.csv" />
+    <None Include="flightplan.csv" />
+    <None Include="takeoff.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\addyLib\include\addyLib\Addy64Lib.h">
@@ -561,12 +564,6 @@
     <ClInclude Include="src\Core\EntryPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Interface\interface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Interface\Simulator\GetAddress.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Events\OnUpdate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -576,13 +573,28 @@
     <ClInclude Include="src\maths\CalculateCourse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\csv\read.h">
+    <ClInclude Include="src\Maths\course.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\csv\on_update_file.h">
+    <ClInclude Include="src\PID\pid_build.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\csv\process_data.h">
+    <ClInclude Include="src\Core\entry_point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Environment\interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CSV\csv_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\csv\build_csv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Environment\Simulator\simulator_build.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PID\PID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
