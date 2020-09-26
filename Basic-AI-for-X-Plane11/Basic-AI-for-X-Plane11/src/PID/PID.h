@@ -33,4 +33,11 @@ namespace PID
 
 		altitude.print();		
 	}	
+
+	void hola()
+	{
+		PID::altitude.print();
+
+	}
 }
+
