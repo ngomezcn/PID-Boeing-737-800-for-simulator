@@ -1,5 +1,4 @@
-#pragma once
-#include "includes.h"
+#include <includes.h>
 
 namespace Init
 {
@@ -12,6 +11,6 @@ namespace Init
 		spdlog::set_level(level);
 	}
 
-	
+
 }
 

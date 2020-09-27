@@ -1,56 +1,8 @@
 #pragma once
-#include <includes.h>
-#include <iostream>
-#include <vector>
+#include "build_csv.h"
 
 namespace csv
-{
-
-    class csv_manager
-    {
-    public:
-        std::vector<std::vector<std::string>> matrix;
-
-        std::string filename;
-        int columns{ 0 };
-        int rows{ 0 };
-
-        bool getError = false;
-
-        // Constructor
-        csv_manager(std::string& _filename);
-
-        // Public functions
-        void print();
-        void read_file();
-
-        void variable_alloc(const char* row_id, const char* columns_id, int& address);
-        void variable_alloc(const char* row_id, const char* columns_id, double& address);
-        void variable_alloc(const char* row_id, const char* columns_id, std::string& address);
-
-
-    private:
-
-        std::vector<int> coma_map;
-        std::ifstream myFile;
-        std::string line;
-        int line_length{ 0 };
-
-        void get_rows();
-        void get_columns();
-
-        void save_in_matrix();
-        void create_coma_map();
-
-
-        // Exceptions and error handling csv_manager
-        bool check_file_location();
-        bool verify_standard();
-        void reset_func_getline();
-
-
-    };
-
+{   
     bool csv_manager::verify_standard()
     {
         reset_func_getline();
@@ -193,18 +145,18 @@ namespace csv
 
             std::vector<int> size_map;
 
-            int max = 0;
+            int max_size = 0;
             for (int i = 0; i < columns; i++)
             {
-                max = 0;
+                max_size = 0;
                 for (int j = 0; j < rows; j++)
                 {
-                    if (matrix[j][i].length() > max)
+                    if (matrix[j][i].length() > max_size)
                     {
-                        max = matrix[j][i].length();
+                        max_size = matrix[j][i].length();
                     }
                 }
-                size_map.push_back(max);
+                size_map.push_back(max_size);
             }
 
             prinfo("Printing file: {0}", filename);
@@ -391,7 +343,6 @@ namespace csv
             }
         }
 
-
         address = std::stod(matrix[row_search][colum_search]);
 
         if (!getError)
@@ -454,6 +405,5 @@ namespace csv
         }
 
     }
-
-  
+     
 }

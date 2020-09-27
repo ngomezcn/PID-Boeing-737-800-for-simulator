@@ -2,42 +2,19 @@
 
 namespace PID
 {
-	class _PID {       
-	public:            
-				
-		double(&state)[4];
-
-		_PID(double(&arr)[4]): state(arr)
-		{
-		
-		}
-
-		void print()
-		{
-			
-			for (int x = 0; x < 4; x++)
-				std::cout << state[x + 0 * 4] << " ";
-			
-		}
-	};
-
-	void PID()
+	namespace CLASS
 	{
-		PID_alloc_variables();
 
-		PID::_PID altitude(PID::variables::altitude);
-		PID::_PID engines(PID::variables::engines);
-		PID::_PID roll(PID::variables::roll);
-		PID::_PID yaw(PID::variables::yaw);
-		PID::_PID pitch(PID::variables::pitch);		
+		void PID::print()
+		{
+			prinfo("Printing vector: {0}", vec_name);			
 
-		altitude.print();		
-	}	
+			prinfo("Kp: {0}", arr[ENUM::Kp]);
+			prinfo("Kd: {0}", arr[ENUM::Kd]);
+			prinfo("Ki: {0}", arr[ENUM::Ki]);
+			prinfo("Target: {0}", arr[ENUM::Target]);
 
-	void hola()
-	{
-		PID::altitude.print();
-
+		}
 	}
 }
 

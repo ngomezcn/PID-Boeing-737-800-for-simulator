@@ -147,9 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="config.csv" />
-    <None Include="flightplan.csv" />
-    <None Include="takeoff.csv" />
     <None Include="vendor\addyLib\LICENSE" />
   </ItemGroup>
   <ItemGroup>

@@ -3,56 +3,92 @@
 
 namespace PID
 {
-	enum pid_var
+	namespace FUNCTIONS
 	{
-		Kp = 0,
-		Kd = 1,
-		Ki = 2,
-		Target = 3,
-		pid_var = 4,
-	};
-
-	namespace variables
+		void alloc_variables();
+	}
+	namespace ENUM
 	{
+		enum Enum
+		{
+			Kp = 0,
+			Kd = 1,
+			Ki = 2,
+			Target = 3,
+			vec_size = 4,
+			var_name = 5,
+		};
+	}
+	
+	namespace CLASS
+	{
+		class PID {
+		public:
 
-		double altitude[pid_var];
-		double engines[pid_var];
-		double roll[pid_var];
-		double yaw[pid_var];
-		double pitch[pid_var];
+			double* arr;
 
+			const char* vec_name;
+
+			PID(double*_arr, const char* _vec_name)
+			{
+				arr = _arr;
+				vec_name = _vec_name;
+			}
+
+
+			void print();
+		};
 	}
 
-	int PID_alloc_variables()
+	namespace VECTOR_CONSTANTS  
 	{
+		double altitude[static_cast<int>(ENUM::vec_size)];
+		double engines[static_cast<int>(ENUM::vec_size)];
+		double roll[static_cast<int>(ENUM::vec_size)];
+		double yaw[static_cast<int>(ENUM::vec_size)];
+		double pitch[static_cast<int>(ENUM::vec_size)];
+	}
+
+	namespace OBJ
+	{
+		PID::CLASS::PID altitude(VECTOR_CONSTANTS::altitude, "altitude");
+		PID::CLASS::PID engines(VECTOR_CONSTANTS::engines, "engines");
+		PID::CLASS::PID roll(VECTOR_CONSTANTS::roll, "roll");
+		PID::CLASS::PID yaw(VECTOR_CONSTANTS::yaw, "yaw");
+		PID::CLASS::PID pitch(VECTOR_CONSTANTS::pitch, "pitch");
+	};
+
+
+	void FUNCTIONS::alloc_variables()
+	{
+		// TODO: Make a clean func instead of copypaste all code.
 		csv::csv_manager PID(csv::paths::PID);
 
-		prdebug("Variables found in the file {0}:", PID.filename);
+		prdebug("constants found in the file {0}:", PID.filename);
 
-		PID.variable_alloc("altitude", "Kp", PID::variables::altitude[PID::Kp]);
-		PID.variable_alloc("altitude", "Kd", PID::variables::altitude[PID::Kd]);
-		PID.variable_alloc("altitude", "Ki", PID::variables::altitude[PID::Ki]);
-		PID.variable_alloc("altitude", "Target", PID::variables::altitude[PID::Target]);
+		PID.variable_alloc("altitude", "Kp", VECTOR_CONSTANTS::altitude[ENUM::Kp]);
+		PID.variable_alloc("altitude", "Kd", VECTOR_CONSTANTS::altitude[ENUM::Kd]);
+		PID.variable_alloc("altitude", "Ki", VECTOR_CONSTANTS::altitude[ENUM::Ki]);
+		PID.variable_alloc("altitude", "Target", VECTOR_CONSTANTS::altitude[ENUM::Target]);
 
-		PID.variable_alloc("engines", "Kp", PID::variables::engines[PID::Kp]);
-		PID.variable_alloc("engines", "Kd", PID::variables::engines[PID::Kd]);
-		PID.variable_alloc("engines", "Ki", PID::variables::engines[PID::Ki]);
-		PID.variable_alloc("engines", "Target", PID::variables::engines[PID::Target]);
+		PID.variable_alloc("engines", "Kp", VECTOR_CONSTANTS::engines[ENUM::Kp]);
+		PID.variable_alloc("engines", "Kd", VECTOR_CONSTANTS::engines[ENUM::Kd]);
+		PID.variable_alloc("engines", "Ki", VECTOR_CONSTANTS::engines[ENUM::Ki]);
+		PID.variable_alloc("engines", "Target", VECTOR_CONSTANTS::engines[ENUM::Target]);
 
-		PID.variable_alloc("roll", "Kp", PID::variables::roll[PID::Kp]);
-		PID.variable_alloc("roll", "Kd", PID::variables::roll[PID::Kd]);
-		PID.variable_alloc("roll", "Ki", PID::variables::roll[PID::Ki]);
-		PID.variable_alloc("roll", "Target", PID::variables::roll[PID::Target]);
+		PID.variable_alloc("roll", "Kp", VECTOR_CONSTANTS::roll[ENUM::Kp]);
+		PID.variable_alloc("roll", "Kd", VECTOR_CONSTANTS::roll[ENUM::Kd]);
+		PID.variable_alloc("roll", "Ki", VECTOR_CONSTANTS::roll[ENUM::Ki]);
+		PID.variable_alloc("roll", "Target", VECTOR_CONSTANTS::roll[ENUM::Target]);
 
-		PID.variable_alloc("yaw", "Kp", PID::variables::yaw[PID::Kp]);
-		PID.variable_alloc("yaw", "Kd", PID::variables::yaw[PID::Kd]);
-		PID.variable_alloc("yaw", "Ki", PID::variables::yaw[PID::Ki]);
-		PID.variable_alloc("yaw", "Target", PID::variables::yaw[PID::Target]);
+		PID.variable_alloc("yaw", "Kp", VECTOR_CONSTANTS::yaw[ENUM::Kp]);
+		PID.variable_alloc("yaw", "Kd", VECTOR_CONSTANTS::yaw[ENUM::Kd]);
+		PID.variable_alloc("yaw", "Ki", VECTOR_CONSTANTS::yaw[ENUM::Ki]);
+		PID.variable_alloc("yaw", "Target", VECTOR_CONSTANTS::yaw[ENUM::Target]);
 
-		PID.variable_alloc("pitch", "Kp", PID::variables::pitch[PID::Kp]);
-		PID.variable_alloc("pitch", "Kd", PID::variables::pitch[PID::Kd]);
-		PID.variable_alloc("pitch", "Ki", PID::variables::pitch[PID::Ki]);
-		PID.variable_alloc("pitch", "Target", PID::variables::pitch[PID::Target]);
-
+		PID.variable_alloc("pitch", "Kp", VECTOR_CONSTANTS::pitch[ENUM::Kp]);
+		PID.variable_alloc("pitch", "Kd", VECTOR_CONSTANTS::pitch[ENUM::Kd]);
+		PID.variable_alloc("pitch", "Ki", VECTOR_CONSTANTS::pitch[ENUM::Ki]);
+		PID.variable_alloc("pitch", "Target", VECTOR_CONSTANTS::pitch[ENUM::Target]);
 	}
 }
