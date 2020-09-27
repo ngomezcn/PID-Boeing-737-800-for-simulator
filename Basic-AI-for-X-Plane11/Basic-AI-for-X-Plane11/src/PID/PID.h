@@ -4,7 +4,6 @@ namespace PID
 {
 	namespace CLASS
 	{
-
 		void PID::print()
 		{
 			prinfo("Printing vector: {0}", vec_name);			

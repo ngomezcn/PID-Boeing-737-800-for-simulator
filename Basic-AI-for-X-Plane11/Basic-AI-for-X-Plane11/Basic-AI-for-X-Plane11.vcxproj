@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="src\Core\EntryPoint.h" />
     <ClInclude Include="src\Core\entry_point.h" />
+    <ClInclude Include="src\Core\error_manager.h" />
     <ClInclude Include="src\CSV\csv_manager.h" />
     <ClInclude Include="src\csv\build_csv.h" />
     <ClInclude Include="src\defines.h" />

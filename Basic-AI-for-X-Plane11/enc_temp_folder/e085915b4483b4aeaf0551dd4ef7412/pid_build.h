@@ -26,13 +26,8 @@ namespace PID
 		public:
 
 			double* arr;
-			const char* vec_name;
 
-			double error;
-			double last_error;
-			double integral;
-			double derivate;
-			double result;
+			const char* vec_name;
 
 			PID(double*_arr, const char* _vec_name)
 			{
