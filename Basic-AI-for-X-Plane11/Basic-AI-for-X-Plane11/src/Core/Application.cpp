@@ -6,6 +6,7 @@ void Clear()
 	system("cls");
 #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
 	system("clear");
+	#include "caraalsol.h"
 #endif
 }
 
@@ -15,9 +16,7 @@ int main() {
 
 	Init::Log(spdlog::level::info);
 
-
-
-	PID::OBJ::altitude.print();
+	double hola = 2.3;
 
 	while (true)
 	{
@@ -25,15 +24,12 @@ int main() {
 
 		cout << string(100, '\n');
 		
-		PID::OBJ::altitude.print();
-		PID::OBJ::engines.print();
-		PID::OBJ::pitch.print();
-		PID::OBJ::roll.print();
-		PID::OBJ::yaw.print();
-
-		Sleep(1000);
+		PID::OBJ::altitude.print(PID::ENUM::Sensor);
+		//PID::OBJ::engines.print();
+		//PID::OBJ::pitch.print();
+		//PID::OBJ::roll.print();
+		//PID::OBJ::yaw.print();
+		Sleep(600);
 	}
-
-
 }
 

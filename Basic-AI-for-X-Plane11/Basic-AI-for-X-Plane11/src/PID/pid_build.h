@@ -16,7 +16,7 @@ namespace PID
 			Ki = 2,
 			Target = 3,
 			vec_size = 4,
-			var_name = 5,
+			Sensor = 6,
 		};
 	}
 	
@@ -28,41 +28,49 @@ namespace PID
 			double* arr;
 			const char* vec_name;
 
+
+
+			// variables para el sistema Proporcional Integral Derivativo
+			double *input = nullptr;
 			double error;
 			double last_error;
 			double integral;
 			double derivate;
 			double result;
+			double sumatori;
 
-			PID(double*_arr, const char* _vec_name)
+			PID(double*_arr, const char* _vec_name, double& _input)
 			{
 				arr = _arr;
 				vec_name = _vec_name;
-			}
-
+				input = &_input;
+			}			
 
 			void print();
+
+			void print(ENUM::Enum Kselect);
+
 		};
 	}
 
 	namespace VECTOR_CONSTANTS  
 	{
-		double altitude[static_cast<int>(ENUM::vec_size)];
-		double engines[static_cast<int>(ENUM::vec_size)];
-		double roll[static_cast<int>(ENUM::vec_size)];
-		double yaw[static_cast<int>(ENUM::vec_size)];
-		double pitch[static_cast<int>(ENUM::vec_size)];
+		double altitude[static_cast<int>(ENUM::vec_size)] = {-1};
+		double engines[static_cast<int>(ENUM::vec_size)] = { -1 };;
+		double roll[static_cast<int>(ENUM::vec_size)] = { -1 };;
+		double yaw[static_cast<int>(ENUM::vec_size)] = { -1 };;
+		double pitch[static_cast<int>(ENUM::vec_size)] = { -1 };;
 	}
 
 	namespace OBJ
 	{
-		PID::CLASS::PID altitude(VECTOR_CONSTANTS::altitude, "altitude");
-		PID::CLASS::PID engines(VECTOR_CONSTANTS::engines, "engines");
-		PID::CLASS::PID roll(VECTOR_CONSTANTS::roll, "roll");
-		PID::CLASS::PID yaw(VECTOR_CONSTANTS::yaw, "yaw");
-		PID::CLASS::PID pitch(VECTOR_CONSTANTS::pitch, "pitch");
+		// PID constructor obj(&array, vec_name, &input)
+		PID::CLASS::PID altitude(VECTOR_CONSTANTS::altitude, "altitude", ENVIR::Inputs::altitude_AGL);
+		PID::CLASS::PID engines(VECTOR_CONSTANTS::engines, "engines", ENVIR::Inputs::airspeed);
+		PID::CLASS::PID roll(VECTOR_CONSTANTS::roll, "roll", ENVIR::Inputs::roll);
+		PID::CLASS::PID yaw(VECTOR_CONSTANTS::yaw, "yaw", ENVIR::Inputs::yaw);
+		PID::CLASS::PID pitch(VECTOR_CONSTANTS::pitch, "pitch", ENVIR::Inputs::pitch);
 	};
-
 
 	void FUNCTIONS::alloc_variables()
 	{
@@ -75,6 +83,13 @@ namespace PID
 		PID.variable_alloc("altitude", "Kd", VECTOR_CONSTANTS::altitude[ENUM::Kd]);
 		PID.variable_alloc("altitude", "Ki", VECTOR_CONSTANTS::altitude[ENUM::Ki]);
 		PID.variable_alloc("altitude", "Target", VECTOR_CONSTANTS::altitude[ENUM::Target]);
+
+		/*const char* a[4] = {"Kp", "Kd", "Ki", "Target"};
+
+		for (int i = 0; i < 4; i++)
+		{
+			PID.variable_alloc("altitude", a[i], VECTOR_CONSTANTS::altitude[i]);
+		}*/
 
 		PID.variable_alloc("engines", "Kp", VECTOR_CONSTANTS::engines[ENUM::Kp]);
 		PID.variable_alloc("engines", "Kd", VECTOR_CONSTANTS::engines[ENUM::Kd]);
